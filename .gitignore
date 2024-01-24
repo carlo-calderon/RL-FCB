@@ -1,2 +1,5 @@
 # Godot 4+ specific ignores
 .godot/
+Objs/Nissan_350Z.obj
+Objs/Nissan_350Z.blend
+Objs/Nissan_350Z.obj.import
