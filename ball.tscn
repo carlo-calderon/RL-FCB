@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://dkep54lkm4dyv"]
+
+[ext_resource type="PackedScene" uid="uid://cbbnvsabe5vny" path="res://Objs/Football_ball.fbx.glb" id="1_25iso"]
+[ext_resource type="Script" path="res://ball.gd" id="1_i8noq"]
+[ext_resource type="Material" uid="uid://bijhsjcfnteq4" path="res://mat/verde.tres" id="3_w2lkn"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_pgyu1"]
+friction = 0.5
+bounce = 0.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_4yj2w"]
+material = ExtResource("3_w2lkn")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3w4a6"]
+margin = 0.1
+radius = 2.25
+
+[node name="Ball" type="RigidBody3D" groups=["balls"]]
+collision_layer = 4
+collision_mask = 3
+mass = 2.0
+physics_material_override = SubResource("PhysicsMaterial_pgyu1")
+script = ExtResource("1_i8noq")
+
+[node name="Pivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.25, 0)
+
+[node name="Football_ball_fbx" parent="Pivot" instance=ExtResource("1_25iso")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, -2.2, 0)
+
+[node name="BoxDebug" type="MeshInstance3D" parent="Pivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+visible = false
+mesh = SubResource("BoxMesh_4yj2w")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.25, 0)
+shape = SubResource("SphereShape3D_3w4a6")

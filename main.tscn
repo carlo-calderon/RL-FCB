@@ -1,0 +1,116 @@
+[gd_scene load_steps=18 format=3 uid="uid://cwjh071d7mc5x"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_h23sn"]
+[ext_resource type="Texture2D" uid="uid://0m3f5mo1c6ws" path="res://ground-1024x1024.jpg" id="2_x6rig"]
+[ext_resource type="Material" uid="uid://b7ciw6l85vpj2" path="res://mat/rosa.tres" id="3_vus7x"]
+[ext_resource type="Material" uid="uid://c65kcxxi26xw1" path="res://mat/celeste.tres" id="4_5mb6o"]
+[ext_resource type="PackedScene" uid="uid://bjpkbw0c1upsg" path="res://car.tscn" id="4_iqphj"]
+[ext_resource type="Material" uid="uid://bijhsjcfnteq4" path="res://mat/verde.tres" id="5_i6mft"]
+[ext_resource type="Material" uid="uid://bfejgocqttl0" path="res://mat/naranjo.tres" id="6_4ewgi"]
+[ext_resource type="PackedScene" uid="uid://dkep54lkm4dyv" path="res://ball.tscn" id="7_qvqmc"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_b40dl"]
+bounce = 0.2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rir2s"]
+size = Vector3(2000, 10, 2000)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uvti8"]
+albedo_texture = ExtResource("2_x6rig")
+uv1_scale = Vector3(50, 50, 50)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ebaj0"]
+material = SubResource("StandardMaterial3D_uvti8")
+size = Vector3(2000, 10, 2000)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p0kof"]
+albedo_color = Color(0.196078, 0.784314, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_tq7ja"]
+material = SubResource("StandardMaterial3D_p0kof")
+top_radius = 5.0
+bottom_radius = 10.0
+height = 5.0
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4qr0o"]
+bounce = 0.3
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_1ymtb"]
+material = ExtResource("3_vus7x")
+top_radius = 3.0
+bottom_radius = 3.0
+height = 20.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_jmjju"]
+height = 20.0
+radius = 3.0
+
+[node name="main" type="Node"]
+script = ExtResource("1_h23sn")
+
+[node name="Ground" type="StaticBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_b40dl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
+shape = SubResource("BoxShape3D_rir2s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
+mesh = SubResource("BoxMesh_ebaj0")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.970194, -0.128479, -0.205466, 0.242328, 0.514383, 0.82261, 0, -0.847882, 0.530186, 0, 202.901, 0)
+light_indirect_energy = 5.0
+shadow_enabled = true
+
+[node name="CameraPivot" type="Marker3D" parent="."]
+transform = Transform3D(-1, -4.37114e-08, 7.57103e-08, 0, 0.866025, 0.5, -8.74228e-08, 0.5, -0.866025, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 10)
+size = 0.001
+
+[node name="Car" parent="." instance=ExtResource("4_iqphj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 1)
+
+[node name="Pivots" type="Node3D" parent="."]
+
+[node name="Origen" type="MeshInstance3D" parent="Pivots"]
+visible = false
+mesh = SubResource("CylinderMesh_tq7ja")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Pivots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 0, 100)
+physics_material_override = SubResource("PhysicsMaterial_4qr0o")
+
+[node name="X2Z2" type="MeshInstance3D" parent="Pivots/StaticBody3D"]
+mesh = SubResource("CylinderMesh_1ymtb")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pivots/StaticBody3D"]
+shape = SubResource("CylinderShape3D_jmjju")
+
+[node name="X0Z2" type="MeshInstance3D" parent="Pivots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 0, 100)
+material_override = ExtResource("4_5mb6o")
+mesh = SubResource("CylinderMesh_1ymtb")
+
+[node name="X0Z0" type="MeshInstance3D" parent="Pivots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 0, -100)
+material_override = ExtResource("5_i6mft")
+mesh = SubResource("CylinderMesh_1ymtb")
+
+[node name="X2Z0" type="MeshInstance3D" parent="Pivots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 0, -100)
+material_override = ExtResource("6_4ewgi")
+mesh = SubResource("CylinderMesh_1ymtb")
+
+[node name="Ball" parent="." instance=ExtResource("7_qvqmc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 20)
+collision_layer = 1
+collision_mask = 1
+angular_velocity = Vector3(0, 0, 12.5664)
+
+[connection signal="movido" from="Car" to="." method="_on_car_movido"]

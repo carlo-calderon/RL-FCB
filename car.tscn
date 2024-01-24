@@ -1,0 +1,81 @@
+[gd_scene load_steps=6 format=3 uid="uid://bjpkbw0c1upsg"]
+
+[ext_resource type="PackedScene" uid="uid://cjgvi0kq63l1g" path="res://Objs/nsx.glb" id="1_p1145"]
+[ext_resource type="Script" path="res://car.gd" id="1_y3u5d"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_n1pul"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6ucmf"]
+size = Vector3(2.5, 1.47739, 6)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_wr486"]
+top_radius = 0.4
+bottom_radius = 0.4
+height = 0.35
+
+[node name="Player" type="VehicleBody3D"]
+physics_material_override = SubResource("PhysicsMaterial_n1pul")
+script = ExtResource("1_y3u5d")
+
+[node name="nsx" parent="." instance=ExtResource("1_p1145")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -1, -1.75)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.861304, 0.055)
+shape = SubResource("BoxShape3D_6ucmf")
+
+[node name="FL_Wheel" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.978463, 0.424161, 1.73719)
+use_as_traction = true
+use_as_steering = true
+wheel_radius = 0.25
+wheel_friction_slip = 1.0
+suspension_stiffness = 75.0
+damping_compression = 0.88
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FL_Wheel"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.0286453, 0, 0)
+mesh = SubResource("CylinderMesh_wr486")
+
+[node name="FR_Wheel" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.10869, 0.424161, 1.73719)
+use_as_traction = true
+use_as_steering = true
+wheel_radius = 0.25
+wheel_friction_slip = 1.0
+suspension_stiffness = 75.0
+damping_compression = 0.88
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FR_Wheel"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.0468845, 0, 0)
+mesh = SubResource("CylinderMesh_wr486")
+
+[node name="RL_Wheel" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.978463, 0.424161, -1.69695)
+use_as_traction = true
+wheel_radius = 0.25
+wheel_friction_slip = 1.0
+suspension_stiffness = 75.0
+damping_compression = 0.88
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RL_Wheel"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.0433802, 0, 0)
+mesh = SubResource("CylinderMesh_wr486")
+
+[node name="RR_Wheel" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.06693, 0.424161, -1.69695)
+use_as_traction = true
+wheel_radius = 0.25
+wheel_friction_slip = 1.0
+suspension_stiffness = 75.0
+damping_compression = 0.88
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RR_Wheel"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.0490625, 0, 0)
+mesh = SubResource("CylinderMesh_wr486")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

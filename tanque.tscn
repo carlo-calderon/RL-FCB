@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://2cjjjexshmy5"]
+
+[ext_resource type="Script" path="res://tanque.gd" id="1_moooj"]
+[ext_resource type="ArrayMesh" uid="uid://dhul48toej0ps" path="res://Objs/tank_trexhwm.obj" id="1_q4c0g"]
+[ext_resource type="ArrayMesh" uid="uid://cfh63d1vit606" path="res://Objs/Nissan_350Z.obj" id="3_ehkph"]
+[ext_resource type="PackedScene" uid="uid://cjgvi0kq63l1g" path="res://Objs/nsx.glb" id="4_h7tav"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_e1rra"]
+friction = 0.1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lrjmd"]
+size = Vector3(12, 4, 4.5)
+
+[node name="Player" type="VehicleBody3D" groups=["players"]]
+collision_layer = 2
+collision_mask = 5
+axis_lock_linear_y = true
+mass = 500.0
+physics_material_override = SubResource("PhysicsMaterial_e1rra")
+script = ExtResource("1_moooj")
+
+[node name="Pivot" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Tanque" type="MeshInstance3D" parent="Pivot"]
+visible = false
+mesh = ExtResource("1_q4c0g")
+
+[node name="350Z" type="MeshInstance3D" parent="Pivot"]
+transform = Transform3D(-8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, 0, 0, 0)
+visible = false
+mesh = ExtResource("3_ehkph")
+
+[node name="NSX" parent="Pivot" instance=ExtResource("4_h7tav")]
+transform = Transform3D(-1.74846e-07, 0, 4, 0, 4, 0, -4, 0, -1.74846e-07, -3, -2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 2, -0.5)
+shape = SubResource("BoxShape3D_lrjmd")
+
+[connection signal="movido" from="." to="." method="_on_movido"]
