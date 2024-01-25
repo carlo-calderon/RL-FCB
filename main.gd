@@ -44,7 +44,7 @@ func _on_car_movido():
 		$CameraPivot.rotation.y = $Car.rotation.y + PI
 	if camera_mode == CameraMode.FirstPerson:
 		$CameraPivot/Camera3D.position = Vector3(0, 3, -3)
-		$CameraPivot.position = $Player.position
+		$CameraPivot.position = $Car.position
 		$CameraPivot.rotation.x = 0
 		$CameraPivot.rotation.y = $Player/Pivot.rotation.y-PI/2.0
 	if camera_mode == CameraMode.Fixed:
