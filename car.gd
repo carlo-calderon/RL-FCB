@@ -44,7 +44,8 @@ func _physics_process(delta):
 	steering = move_toward(steering, steer_target, STEER_SPEED * delta)
 	
 	if Input.is_action_pressed("jump") and position.y < MIN_POSITION_Y:
-		apply_impulse(Vector3(0, Jump_impulse, 0), Vector3(0, 0, 0.0))
+		#apply_impulse(Vector3(0, Jump_impulse, 0), Vector3(0, 0, 0.0))
+		linear_velocity = linear_velocity + Vector3(0, 3, 0)
 		
 	if Input.is_action_pressed("reset_car"):
 		rotation = Vector3(0, 0, 0)
