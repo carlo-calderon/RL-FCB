@@ -73,6 +73,7 @@ size = 0.001
 
 [node name="Car" parent="." instance=ExtResource("4_iqphj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 1)
+Jump_impulse = 100.0
 
 [node name="Pivots" type="Node3D" parent="."]
 

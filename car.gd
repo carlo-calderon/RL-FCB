@@ -46,6 +46,9 @@ func _physics_process(delta):
 	if Input.is_action_pressed("jump") and position.y < MIN_POSITION_Y:
 		apply_impulse(Vector3(0, Jump_impulse, 0), Vector3(0, 0, 0.0))
 		
+	if Input.is_action_pressed("reset_car"):
+		rotation = Vector3(0, 0, 0)
+		
 	if linear_velocity.length() > 0.01:
 		movido.emit()
 
