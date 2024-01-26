@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cwjh071d7mc5x"]
+[gd_scene load_steps=19 format=3 uid="uid://cwjh071d7mc5x"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_h23sn"]
 [ext_resource type="Texture2D" uid="uid://0m3f5mo1c6ws" path="res://ground-1024x1024.jpg" id="2_x6rig"]
@@ -43,6 +43,10 @@ height = 20.0
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_jmjju"]
 height = 20.0
+radius = 3.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_bab6e"]
+material = ExtResource("4_5mb6o")
 radius = 3.0
 
 [node name="main" type="Node"]
@@ -113,5 +117,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 20)
 collision_layer = 1
 collision_mask = 1
 angular_velocity = Vector3(0, 0, 12.5664)
+
+[node name="PointDebug" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("SphereMesh_bab6e")
 
 [connection signal="movido" from="Car" to="." method="_on_car_movido"]
