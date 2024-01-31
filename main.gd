@@ -55,8 +55,8 @@ func _on_car_movido():
 		var objective_position = $Ball/Pivot.global_transform.origin
 #		$PointDebug.position = objective_position
 		var direction = (objective_position - $CameraPivot.position).normalized()
-		#var direction = (objective_position - $CameraPivot/Camera3D.global_transform.origin).normalized()
 		$CameraPivot/Camera3D.position = Vector3(0, 3, 10)
 		$CameraPivot.position = $Car.position - 10*direction
 		$CameraPivot/Camera3D.look_at(objective_position+10*direction, Vector3.UP)
-		
+	$BaseGlobal.position = $Car/Base.global_transform.origin
+

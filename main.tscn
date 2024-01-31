@@ -1,6 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://cwjh071d7mc5x"]
+[gd_scene load_steps=21 format=3 uid="uid://cwjh071d7mc5x"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_h23sn"]
+[ext_resource type="Script" path="res://Ground.gd" id="2_25ie3"]
 [ext_resource type="Texture2D" uid="uid://0m3f5mo1c6ws" path="res://ground-1024x1024.jpg" id="2_x6rig"]
 [ext_resource type="Material" uid="uid://b7ciw6l85vpj2" path="res://mat/rosa.tres" id="3_vus7x"]
 [ext_resource type="Material" uid="uid://c65kcxxi26xw1" path="res://mat/celeste.tres" id="4_5mb6o"]
@@ -8,6 +9,7 @@
 [ext_resource type="Material" uid="uid://bijhsjcfnteq4" path="res://mat/verde.tres" id="5_i6mft"]
 [ext_resource type="Material" uid="uid://bfejgocqttl0" path="res://mat/naranjo.tres" id="6_4ewgi"]
 [ext_resource type="PackedScene" uid="uid://dkep54lkm4dyv" path="res://ball.tscn" id="7_qvqmc"]
+[ext_resource type="PackedScene" uid="uid://ducv38lngpqga" path="res://base_ejes.tscn" id="9_nus8b"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_b40dl"]
 bounce = 0.2
@@ -54,6 +56,7 @@ script = ExtResource("1_h23sn")
 
 [node name="Ground" type="StaticBody3D" parent="."]
 physics_material_override = SubResource("PhysicsMaterial_b40dl")
+script = ExtResource("2_25ie3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
@@ -77,7 +80,7 @@ size = 0.001
 
 [node name="Car" parent="." instance=ExtResource("4_iqphj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 1)
-Jump_impulse = 2.5
+rotation_speed = 4.0
 
 [node name="Pivots" type="Node3D" parent="."]
 
@@ -121,5 +124,8 @@ angular_velocity = Vector3(0, 0, 12.5664)
 [node name="PointDebug" type="MeshInstance3D" parent="."]
 visible = false
 mesh = SubResource("SphereMesh_bab6e")
+
+[node name="BaseGlobal" parent="." instance=ExtResource("9_nus8b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -5)
 
 [connection signal="movido" from="Car" to="." method="_on_car_movido"]

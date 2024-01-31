@@ -9,6 +9,7 @@ const MIN_POSITION_Y = 0.1
 @export var rotation_speed = 3.0
 
 var steer_target = 0
+var inclinacion = 0
 var esta_volando = false
 
 signal movido
@@ -19,11 +20,12 @@ func _physics_process(delta):
 	esta_volando = not(position.y < MIN_POSITION_Y)
 
 	steer_target = Input.get_action_strength("rotate_left") - Input.get_action_strength("rotate_right")
+	inclinacion = Input.get_action_strength("move_forward") - Input.get_action_strength("move_back")
 	steer_target *= STEER_LIMIT
 
 	if esta_volando==true:
-		print("volando!!", steer_target)
-		angular_velocity = Vector3(0, steer_target*rotation_speed, 0)
+		print("volando!!", steer_target, ", ", global_transform.origin.y)
+		angular_velocity = Vector3(0, steer_target*rotation_speed, 0) + global_basis.x*inclinacion*rotation_speed
 	else:
 		if Input.is_action_pressed("move_forward"):
 			# Increase engine force at low speeds to make the initial acceleration faster.
@@ -59,8 +61,15 @@ func _physics_process(delta):
 		
 	if linear_velocity.length() > 0.01:
 		movido.emit()
+	inclinacion = 0
+	steer_target = 0
 
 func _on_timer_timeout():
 	print("Volando? ", esta_volando)
 	#print(linear_velocity.length(), " ; ", linear_velocity, " ; ", get_contact_count())
 	#print("Engine: ", engine_force, ", Brake: ", brake, ", Steering: ", steering)
+
+
+func _on_body_entered(body: PhysicsBody3D):
+	if body is StaticBody3D:
+		print("El cuerpo estático ha sido intersectado por: " + body.name)

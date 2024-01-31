@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://c0yt1vxvd6vly"]
+
+[ext_resource type="Script" path="res://eje.gd" id="1_b8arv"]
+[ext_resource type="Material" uid="uid://bijhsjcfnteq4" path="res://mat/verde.tres" id="2_4yg5i"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_cte8f"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 1.5
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3f0rp"]
+top_radius = 0.0
+bottom_radius = 0.15
+height = 0.3
+
+[node name="Eje" type="Node3D"]
+script = ExtResource("1_b8arv")
+color = ExtResource("2_4yg5i")
+
+[node name="Tubo" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+mesh = SubResource("CylinderMesh_cte8f")
+
+[node name="Punta" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+mesh = SubResource("CylinderMesh_3f0rp")

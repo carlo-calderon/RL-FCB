@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bjpkbw0c1upsg"]
+[gd_scene load_steps=7 format=3 uid="uid://bjpkbw0c1upsg"]
 
 [ext_resource type="PackedScene" uid="uid://cjgvi0kq63l1g" path="res://Objs/nsx.glb" id="1_p1145"]
 [ext_resource type="Script" path="res://car.gd" id="1_y3u5d"]
+[ext_resource type="PackedScene" uid="uid://ducv38lngpqga" path="res://base_ejes.tscn" id="3_fk6te"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_n1pul"]
 
@@ -78,4 +79,8 @@ mesh = SubResource("CylinderMesh_wr486")
 wait_time = 0.5
 autostart = true
 
+[node name="Base" parent="." instance=ExtResource("3_fk6te")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

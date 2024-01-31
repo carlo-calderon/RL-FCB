@@ -1,0 +1,30 @@
+[gd_scene load_steps=8 format=3 uid="uid://ducv38lngpqga"]
+
+[ext_resource type="Script" path="res://BaseEjes.gd" id="1_dxymj"]
+[ext_resource type="PackedScene" uid="uid://c0yt1vxvd6vly" path="res://eje.tscn" id="2_dqa7f"]
+[ext_resource type="Material" uid="uid://odkjawpnulj3" path="res://mat/amarillo.tres" id="3_hvxyb"]
+[ext_resource type="Material" uid="uid://d1jdte7sltvwk" path="res://mat/rojo.tres" id="3_jggli"]
+[ext_resource type="Material" uid="uid://8m40smqfde1r" path="res://mat/verde2.tres" id="4_0fb7i"]
+[ext_resource type="Material" uid="uid://xvwcr0j72636" path="res://mat/azul.tres" id="5_madm8"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_oemke"]
+material = ExtResource("3_hvxyb")
+radius = 0.3
+height = 0.6
+
+[node name="Base" type="Node3D"]
+script = ExtResource("1_dxymj")
+
+[node name="EjeX" parent="." instance=ExtResource("2_dqa7f")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+color = ExtResource("3_jggli")
+
+[node name="EjeY" parent="." instance=ExtResource("2_dqa7f")]
+color = ExtResource("4_0fb7i")
+
+[node name="EjeZ" parent="." instance=ExtResource("2_dqa7f")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+color = ExtResource("5_madm8")
+
+[node name="centro" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_oemke")
